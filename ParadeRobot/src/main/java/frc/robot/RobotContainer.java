@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -28,7 +29,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    dt.setDefaultCommand(new GoTele(true, 0.15, 1));
+    dt.setDefaultCommand(new GoTele(true, 0.15, 1, dt));
     configureBindings();
   }
 
@@ -46,6 +47,7 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
+    DriverStation.silenceJoystickConnectionWarning(true);
     Controllers.Zero.A.onTrue(new InstantCommand(() -> Pnumatics.solenoidMove(Value.kForward)));
     Controllers.Zero.Y.onTrue(new InstantCommand(() -> Pnumatics.solenoidMove(Value.kReverse)));
   }

@@ -24,8 +24,8 @@ public class Pnumatics extends SubsystemBase {
   }
 
   public static void initialize() {
-    compressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
-    doubleSolenoid = new DoubleSolenoid(0, PneumaticsModuleType.REVPH, 0, 1);
+    compressor = new Compressor(1, PneumaticsModuleType.CTREPCM);
+    doubleSolenoid = new DoubleSolenoid(1, PneumaticsModuleType.REVPH, 1, 2);
   }
 
   public static void solenoidMove(Value position) {

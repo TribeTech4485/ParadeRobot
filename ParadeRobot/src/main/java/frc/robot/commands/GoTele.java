@@ -3,8 +3,9 @@ package frc.robot.commands;
 import java.text.MessageFormat;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.Controllers;
 import frc.robot.Controllers.*;
@@ -27,12 +28,13 @@ public class GoTele extends CommandBase {
   /**
    * Identifies active driving controller and activates drivetrain
    */
-  public GoTele(boolean drivingEnabled, double driveDeadzone, double topSpeed) {
+  public GoTele(boolean drivingEnabled, double driveDeadzone, double topSpeed, Subsystem subsystem) {
     this.drivingEnabled = drivingEnabled;
     this.deadzone = driveDeadzone;
     this.speedMultiplier = topSpeed;
     this.counter = 0;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(subsystem);
   }
 
   @Override
@@ -49,17 +51,17 @@ public class GoTele extends CommandBase {
     ControllerBase driverController = Controllers.Zero;
 
     // Driving controls
-    if (driverController.object.isConnected()) {
       if (driverController.LeftTrigger.getAsBoolean() == true) {
         teleLeft = (driverController.object.getLeftY() +
             driverController.object.getRightY()) / (-2);
         teleRight = teleLeft;
       } else {
-        teleLeft = driverController.object.getLeftY() * -1;
-        teleRight = driverController.object.getRightY() * -1;
+        // teleLeft = driverController.object.getLeftY() * -1;
+        // teleRight = driverController.object.getRightY() * -1;
+        teleLeft = driverController.object.getRawAxis(0) * -1;
+        teleRight = driverController.object.getRawAxis(1) * -1;
+        // System.out.println("World" + teleLeft + teleRight);
       }
-      SmartDashboard.putString("Driver user", "Main");
-    }
 
 
     teleLeft = procDz(teleLeft, deadzone);

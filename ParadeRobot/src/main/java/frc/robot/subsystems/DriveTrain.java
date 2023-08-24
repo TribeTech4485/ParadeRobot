@@ -30,11 +30,11 @@ public class DriveTrain extends SubsystemBase {
 
   public static void initialize() {
     leftMotor1 = new CANSparkMax(Constants.DriveConstants.leftDriveMotor1Port, MotorType.kBrushless);
-    leftMotor1 = new CANSparkMax(Constants.DriveConstants.leftDriveMotor2Port, MotorType.kBrushless);
-    // leftMotor1 = new CANSparkMax(Constants.DriveConstants.leftDriveMotor3Port, MotorType.kBrushless);
-    leftMotor1 = new CANSparkMax(Constants.DriveConstants.rightDriveMotor1Port, MotorType.kBrushless);
-    leftMotor1 = new CANSparkMax(Constants.DriveConstants.rightDriveMotor2Port, MotorType.kBrushless);
-    // leftMotor1 = new CANSparkMax(Constants.DriveConstants.rightDriveMotor3Port, MotorType.kBrushless);
+    leftMotor2 = new CANSparkMax(Constants.DriveConstants.leftDriveMotor2Port, MotorType.kBrushless);
+    // leftMotor3 = new CANSparkMax(Constants.DriveConstants.leftDriveMotor3Port, MotorType.kBrushless);
+    rightMotor1 = new CANSparkMax(Constants.DriveConstants.rightDriveMotor1Port, MotorType.kBrushless);
+    rightMotor2 = new CANSparkMax(Constants.DriveConstants.rightDriveMotor2Port, MotorType.kBrushless);
+    // rightMotor3 = new CANSparkMax(Constants.DriveConstants.rightDriveMotor3Port, MotorType.kBrushless);
     leftSide = new MotorControllerGroup(leftMotor1, leftMotor2);
     rightSide = new MotorControllerGroup(rightMotor1, rightMotor2);
   }
