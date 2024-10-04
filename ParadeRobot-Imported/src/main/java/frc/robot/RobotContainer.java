@@ -17,9 +17,12 @@ import frc.robot.subsystems.Pnumatics;
 import frc.robot.subsystems.Shooter;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
@@ -31,7 +34,9 @@ public class RobotContainer {
   CommandXboxController xbox = new CommandXboxController(0);
   XboxController xboxHID = xbox.getHID();
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     // Configure the trigger bindings
     dt.setDefaultCommand(new GoTele(true, 0.15, 1, dt));
@@ -39,23 +44,35 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your trigger->command mappings. Triggers can be created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
+   * Use this method to define your trigger->command mappings. Triggers can be
+   * created via the
+   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
+   * an arbitrary
    * predicate, or via the named factories in {@link
-   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-   * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-   * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
+   * {@link
+   * CommandXboxController
+   * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+   * PS4} controllers or
+   * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
+    // Schedule `exampleMethodCommand` when the Xbox controller's B button is
+    // pressed,
     // cancelling on release.
     DriverStation.silenceJoystickConnectionWarning(true);
 
-    xbox.b().onTrue(new InstantCommand(() -> shooter.setSpeed(0.5), shooter));
-    xbox.b().onFalse(new InstantCommand(() -> shooter.setSpeed(0), shooter));
+    xbox.b().onTrue(new InstantCommand(() -> shooter.setSpeed(1), shooter))
+        .onFalse(new InstantCommand(() -> shooter.setSpeed(0), shooter));
+
+    xbox.a().onTrue(new InstantCommand(() -> shooter.setSpeed(-0.5), shooter))
+        .onFalse(new InstantCommand(() -> shooter.setSpeed(0), shooter));
+
+    xbox.rightTrigger().onTrue(new InstantCommand(() -> dt.setBrakeMode(true)))
+        .onFalse(new InstantCommand(() -> dt.setBrakeMode(false)));
   }
 
   /**

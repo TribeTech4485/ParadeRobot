@@ -4,22 +4,18 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
-  private static TalonFX leftMotor1;
-  private static TalonFX leftMotor2;
+  private static TalonSRX leftMotor1;
+  private static TalonSRX leftMotor2;
   // private static CANSparkMax leftMotor3;
-  private static TalonFX rightMotor1;
-  private static TalonFX rightMotor2;
+  private static TalonSRX rightMotor1;
+  private static TalonSRX rightMotor2;
   // private static CANSparkMax rightMotor3;
   // public static MotorControllerGroup leftSide;
   // public static MotorControllerGroup rightSide;
@@ -31,20 +27,27 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public static void initialize() {
-    leftMotor1 = new TalonFX(2);
-    leftMotor2 = new TalonFX(4);
+    leftMotor1 = new TalonSRX(2);
+    leftMotor2 = new TalonSRX(4);
     // leftMotor3 = new CANSparkMax(Constants.DriveConstants.leftDriveMotor3Port, MotorType.kBrushless);
-    rightMotor1 = new TalonFX(1);
-    rightMotor2 = new TalonFX(3);
+    rightMotor1 = new TalonSRX(1);
+    rightMotor2 = new TalonSRX(3);
     // rightMotor3 = new CANSparkMax(Constants.DriveConstants.rightDriveMotor3Port, MotorType.kBrushless);
   }
 
   public static void tankDrive(double leftSpeed, double rightSpeed) {
-    leftMotor1.set(leftSpeed);
-    leftMotor2.set(leftSpeed);
+    leftMotor1.set(TalonSRXControlMode.PercentOutput, -leftSpeed);
+    leftMotor2.set(TalonSRXControlMode.PercentOutput, -leftSpeed);
     // leftMotor3.set(leftSpeed);
-    rightMotor1.set(rightSpeed);
-    rightMotor2.set(rightSpeed);
+    rightMotor1.set(TalonSRXControlMode.PercentOutput, rightSpeed);
+    rightMotor2.set(TalonSRXControlMode.PercentOutput, rightSpeed);
     // rightMotor3.set(rightSpeed);
+  }
+
+  public static void setBrakeMode(boolean brake) {
+    leftMotor1.setNeutralMode(brake ? NeutralMode.Brake : NeutralMode.Coast);
+    leftMotor2.setNeutralMode(brake ? NeutralMode.Brake : NeutralMode.Coast);
+    rightMotor1.setNeutralMode(brake ? NeutralMode.Brake : NeutralMode.Coast);
+    rightMotor2.setNeutralMode(brake ? NeutralMode.Brake : NeutralMode.Coast);
   }
 }

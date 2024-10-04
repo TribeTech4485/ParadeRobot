@@ -4,14 +4,16 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
-  TalonFX shooterMotor = new TalonFX(6);
+  TalonSRX shooterMotor = new TalonSRX(6);
 
   public void setSpeed(double speed) {
-    shooterMotor.set(speed);
+    shooterMotor.set(TalonSRXControlMode.PercentOutput, speed);
   }
 }

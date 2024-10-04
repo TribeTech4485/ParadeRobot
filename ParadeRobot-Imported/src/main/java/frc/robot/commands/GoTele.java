@@ -58,8 +58,8 @@ public class GoTele extends Command {
       } else {
         // teleLeft = driverController.object.getLeftY() * -1;
         // teleRight = driverController.object.getRightY() * -1;
-        teleLeft = driverController.object.getRawAxis(0) * -1;
-        teleRight = driverController.object.getRawAxis(1) * -1;
+        teleLeft = driverController.object.getRawAxis(1) * -1;
+        teleRight = driverController.object.getRawAxis(5) * -1;
         // System.out.println("World" + teleLeft + teleRight);
       }
 
