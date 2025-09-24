@@ -28,5 +28,7 @@ public final class Constants {
     public static final int rightDriveMotor2Port = 2;
     // public static final int rightDriveMotor3Port = 5;
     public static int drivingExponent = 1;
+
+    public static final int shooterPort = 5;
   }
 }
